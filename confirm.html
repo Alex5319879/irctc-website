@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ticket Confirmation - IRCTC</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f0f0;
+      margin: 0;
+      padding: 40px;
+    }
+
+    .confirmation-box {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: auto;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .confirmation-box h2 {
+      color: #004b8d;
+    }
+
+    .confirmation-box p {
+      margin: 10px 0;
+      font-size: 16px;
+    }
+
+    .btn-group {
+      margin-top: 30px;
+    }
+
+    .btn-group button {
+      margin: 6px;
+      padding: 10px 18px;
+      font-size: 15px;
+      border: none;
+      border-radius: 6px;
+      background-color: #004b8d;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .btn-group button:hover {
+      background-color: #1abc9c;
+    }
+
+    @media print {
+      .btn-group {
+        display: none;
+      }
+    }
+
+    #passenger-details {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    #passenger-details h3 {
+      color: #004b8d;
+      text-align: left;
+    }
+
+    #passenger-details table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    #passenger-details th,
+    #passenger-details td {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      text-align: center;
+    }
+     body {
+      background: url('confirm-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .confirmation-box {
+      background: rgba(255, 255, 255, 0.95);
+    }
+  </style>
+</head>
+<body>
+
+<div class="confirmation-box">
+  <h2>✅ Ticket Confirmed!</h2>
+  <p><strong>From:</strong> <span id="from"></span></p>
+  <p><strong>To:</strong> <span id="to"></span></p>
+  <p><strong>Date:</strong> <span id="date"></span></p>
+  <p><strong>Class:</strong> <span id="class"></span></p>
+  <p><strong>PNR:</strong> <span id="pnr"></span></p>
+
+  <hr style="margin: 20px 0;">
+
+  <p style="color: green;">📧 A confirmation email and SMS has been sent to your registered contact.</p>
+
+  <div id="passenger-details">
+    <h3>Passenger Details:</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl. No.</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>ID Type</th>
+          <th>ID Number</th>
+          <th>Mobile</th>
+        </tr>
+      </thead>
+      <tbody id="passengerTableBody">
+        <!-- Filled via JavaScript -->
+      </tbody>
+    </table>
+  </div>
+
+  <div class="btn-group">
+    <button onclick="window.print()">🖨️ Print Ticket</button>
+    <button onclick="window.print()">🗎 Save as PDF</button>
+    <button onclick="window.location.href='index.html'">🏠 Back to Home</button>
+  </div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("from").innerText = params.get("from");
+  document.getElementById("to").innerText = params.get("to");
+  document.getElementById("date").innerText = params.get("date");
+  document.getElementById("class").innerText = params.get("class");
+  document.getElementById("pnr").innerText = params.get("pnr");
+
+  const tbody = document.getElementById("passengerTableBody");
+
+  for (let i = 1; i <= 6; i++) {
+    const name = params.get(`name${i}`);
+    if (!name) break;
+
+    const age = params.get(`age${i}`) || '';
+    const gender = params.get(`gender${i}`) || '';
+    const idtype = params.get(`idtype${i}`) || '';
+    const idnumber = params.get(`idnumber${i}`) || '';
+    const mobile = params.get(`mobile${i}`) || '';
+
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${i}</td>
+      <td>${name}</td>
+      <td>${age}</td>
+      <td>${gender}</td>
+      <td>${idtype}</td>
+      <td>${idnumber}</td>
+      <td>${mobile}</td>
+    `;
+    tbody.appendChild(row);
+  }
+</script>
+
+</body>
+</html>

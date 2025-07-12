@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Passenger Details - IRCTC</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body.passenger-page {
+      background-image: url('indian-railways.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      margin: 0;
+      padding: 50px 20px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .passenger-form-box {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004b8d;
+      margin-bottom: 30px;
+    }
+
+    .passenger-group {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .passenger-group h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+    }
+
+    #addPassengerBtn, button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      font-size: 16px;
+      background-color: #004b8d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #addPassengerBtn:hover, button[type="submit"]:hover {
+      background-color: #1abc9c;
+    }
+
+    @media (max-width: 600px) {
+      .passenger-form-box {
+        padding: 20px;
+      }
+
+      .passenger-group {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body class="passenger-page">
+
+  <div class="passenger-form-box">
+    <h2>Enter Passenger Details</h2>
+
+    <form id="passengerForm" action="payment.html" method="get">
+      <!-- Journey info from book.html -->
+      <input type="hidden" name="from">
+      <input type="hidden" name="to">
+      <input type="hidden" name="date">
+      <input type="hidden" name="class">
+
+      <div id="passengerContainer">
+        <!-- First passenger will be added via JS -->
+      </div>
+
+      <button type="button" id="addPassengerBtn">+ Add Passenger</button>
+      <button type="submit">Proceed to Payment</button>
+    </form>
+  </div>
+
+  <script>
+    // Get and carry forward journey details
+    const params = new URLSearchParams(window.location.search);
+    const form = document.getElementById('passengerForm');
+    ['from', 'to', 'date', 'class'].forEach(name => {
+      form.querySelector(`[name="${name}"]`).value = params.get(name);
+    });
+
+    const container = document.getElementById('passengerContainer');
+    let passengerCount = 0;
+    const maxPassengers = 6;
+
+    function addPassenger() {
+      if (passengerCount >= maxPassengers) {
+        alert("Maximum 6 passengers allowed.");
+        return;
+      }
+
+      passengerCount++;
+
+      const div = document.createElement('div');
+      div.classList.add('passenger-group');
+
+      div.innerHTML = `
+        <h3>Passenger ${passengerCount}</h3>
+        <label>Full Name:</label>
+        <input type="text" name="name${passengerCount}" required>
+
+        <label>Age:</label>
+        <input type="number" name="age${passengerCount}" min="1" required>
+
+        <label>Gender:</label>
+        <select name="gender${passengerCount}" required>
+          <option value="">--Select--</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+
+        <label>ID Type:</label>
+        <select name="idtype${passengerCount}" required>
+          <option value="">--Select--</option>
+          <option>Aadhaar</option>
+          <option>PAN</option>
+          <option>Passport</option>
+        </select>
+
+        <label>ID Number:</label>
+        <input type="text" name="idnumber${passengerCount}" required>
+
+        <label>Mobile Number:</label>
+        <input type="tel" name="mobile${passengerCount}" pattern="[0-9]{10}" required>
+      `;
+
+      container.appendChild(div);
+    }
+
+    // Add first passenger by default
+    addPassenger();
+
+    document.getElementById('addPassengerBtn').addEventListener('click', addPassenger);
+  </script>
+
+</body>
+</html>

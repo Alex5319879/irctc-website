@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment - IRCTC</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+    }
+
+    .payment-page {
+      background: url('banner.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+      padding: 50px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .payment-box {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #004b8d;
+      margin-bottom: 20px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      justify-content: space-around;
+      margin: 15px 0;
+    }
+
+    .tab {
+      padding: 10px;
+      border: none;
+      background: #ddd;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: #004b8d;
+      color: white;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 10px;
+      display: block;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .wallet-options button {
+      margin: 8px 5px 0 0;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background: #eee;
+      cursor: pointer;
+    }
+
+    button[type="submit"] {
+      margin-top: 20px;
+      padding: 12px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #004b8d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .upi-qr {
+      width: 150px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<section class="payment-page">
+  <div class="payment-box fade-in">
+
+    <h2>Secure Payment Gateway</h2>
+    <p><strong>Amount Payable:</strong> ₹750.00</p>
+
+    <div class="tab-buttons">
+      <button type="button" class="tab active" onclick="switchTab('card')">💳 Card</button>
+      <button type="button" class="tab" onclick="switchTab('upi')">🏦 UPI</button>
+      <button type="button" class="tab" onclick="switchTab('wallet')">👜 Wallet</button>
+    </div>
+
+    <form id="paymentForm" action="payment-success.html" method="get">
+      <!-- Journey Info -->
+      <input type="hidden" name="from">
+      <input type="hidden" name="to">
+      <input type="hidden" name="date">
+      <input type="hidden" name="class">
+
+      <!-- Card Tab -->
+      <div id="tab-card" class="tab-content active">
+        <label>Card Number</label>
+        <input type="text" placeholder="XXXX-XXXX-XXXX-1234" required>
+
+        <div class="form-row">
+          <div>
+            <label>Expiry</label>
+            <input type="month" required>
+          </div>
+          <div>
+            <label>CVV</label>
+            <input type="password" maxlength="3" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPI Tab -->
+      <div id="tab-upi" class="tab-content">
+        <p>Scan this QR code to pay</p>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay" alt="UPI QR" class="upi-qr">
+        <label>Or Enter your UPI ID</label>
+        <input type="text" placeholder="yourname@upi" required>
+      </div>
+
+      <!-- Wallet Tab -->
+      <div id="tab-wallet" class="tab-content">
+        <p>Select Wallet:</p>
+        <div class="wallet-options">
+          <button type="button">Paytm</button>
+          <button type="button">PhonePe</button>
+          <button type="button">Google Pay</button>
+        </div>
+      </div>
+
+      <!-- ✅ Submit Button Now Always Present -->
+      <button type="submit">💳 Pay Securely</button>
+    </form>
+
+  </div>
+</section>
+
+<script>
+  function switchTab(tab) {
+    // Remove active class
+    document.querySelectorAll('.tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
+
+    // Add active class to clicked tab
+    document.querySelector(`#tab-${tab}`).classList.add('active');
+    document.querySelector(`.tab-buttons .tab[onclick*="${tab}"]`).classList.add('active');
+
+    // Disable required from all inputs
+    document.querySelectorAll('.tab-content input').forEach(input => {
+      input.removeAttribute('required');
+    });
+
+    // Enable required for visible inputs
+    document.querySelectorAll(`#tab-${tab} input`).forEach(input => {
+      input.setAttribute('required', 'true');
+    });
+  }
+
+  // On load: fill journey and passenger fields
+  const params = new URLSearchParams(window.location.search);
+  const form = document.getElementById('paymentForm');
+
+  ['from', 'to', 'date', 'class'].forEach(name => {
+    const input = form.querySelector(`[name="${name}"]`);
+    if (input) input.value = params.get(name);
+  });
+
+  for (let i = 1; i <= 6; i++) {
+    const name = params.get(`name${i}`);
+    if (!name) break;
+
+    ['name', 'age', 'gender', 'idtype', 'idnumber', 'mobile'].forEach(field => {
+      const value = params.get(`${field}${i}`);
+      if (value) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = `${field}${i}`;
+        input.value = value;
+        form.appendChild(input);
+      }
+    });
+  }
+
+  // Enable required inputs for default visible tab on load
+  switchTab('card');
+</script>
+
+</body>
+</html>

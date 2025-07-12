@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Help & Support - IRCTC</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('vande.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .top-login-bar {
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .top-links a, .user-info {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      margin: 60px auto;
+      max-width: 800px;
+      border-radius: 10px;
+    }
+
+    h2 {
+      color: #1abc9c;
+    }
+
+    a {
+      color: #1abc9c;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  const isLoggedIn = localStorage.getItem("irctcLoggedIn") === "true";
+  if (!isLoggedIn) {
+    alert("🔐 Please login to access Help & Support.");
+    window.location.href = "login.html";
+  }
+</script>
+
+<!-- 🧭 Navbar -->
+<div class="top-login-bar">
+  <img src="indian-railways.png" class="logo" alt="Indian Railways Logo">
+
+  <div class="top-links">
+    <span class="user-info">👤 Logged in as: <strong id="userDisplay">User</strong></span>
+    <a href="index.html">Home</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <img src="irctc-logo.png" class="logo" alt="IRCTC Logo">
+</div>
+
+<div class="container">
+  <h2>Help & Support</h2>
+  <p>
+    For any query or issue, please visit the official <a href="https://equery.irctc.co.in/irctc_equery/query/resolution" target="_blank">IRCTC Support Portal</a>.
+  </p>
+  <p>
+    You can raise issues related to bookings, refunds, cancellations, and more.
+  </p>
+</div>
+
+<script>
+  const loggedUser = JSON.parse(localStorage.getItem("irctcUser"));
+  document.getElementById("userDisplay").textContent = loggedUser?.username || "User";
+
+  function logout() {
+    localStorage.removeItem("irctcLoggedIn");
+    alert("👋 You have been logged out.");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

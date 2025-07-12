@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Ticket - IRCTC</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('book-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .top-login-bar {
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+
+    .top-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .top-links a, .user-info {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px;
+      margin: 60px auto;
+      max-width: 600px;
+      border-radius: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 5px;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 20px;
+      background: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🔐 Protect route -->
+<script>
+  const isLoggedIn = localStorage.getItem("irctcLoggedIn") === "true";
+  if (!isLoggedIn) {
+    alert("🔒 You must be logged in to access this page.");
+    window.location.href = "login.html";
+  }
+</script>
+
+<!-- ✅ Top Navbar -->
+<div class="top-login-bar">
+  <img src="indian-railways.png" class="logo" alt="Indian Railways Logo">
+
+  <div class="top-links">
+    <span class="user-info">👤 Logged in as: <strong id="userDisplay">User</strong></span>
+    <a href="index.html">Home</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </div>
+
+  <img src="irctc-logo.png" class="logo" alt="IRCTC Logo">
+</div>
+
+<!-- 🚆 Booking Form -->
+<div class="container">
+  <h2>Book Your Ticket</h2>
+  <form action="passenger.html" method="get">
+    <label for="from">From:</label>
+    <input type="text" name="from" required>
+
+    <label for="to">To:</label>
+    <input type="text" name="to" required>
+
+    <label for="date">Journey Date:</label>
+    <input type="date" name="date" required>
+
+    <label for="class">Class:</label>
+    <select name="class" required>
+      <option value="">Select</option>
+      <option value="Sleeper">Sleeper</option>
+      <option value="AC">AC</option>
+      <option value="Second Sitting">Second Sitting</option>
+    </select>
+
+    <button type="submit">Proceed to Passenger Details</button>
+  </form>
+</div>
+
+<script>
+  const loggedUser = JSON.parse(localStorage.getItem("irctcUser"));
+  document.getElementById("userDisplay").textContent = loggedUser?.username || "User";
+
+  function logout() {
+    localStorage.removeItem("irctcLoggedIn");
+    alert("👋 You have been logged out.");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Successful - IRCTC</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0f7e9;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .success-box {
+      background-color: #ffffff;
+      padding: 40px 50px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      color: #27ae60;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+
+    .loader {
+      margin: 30px auto;
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #27ae60;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="success-box">
+  <h1>✅ Payment Successful!</h1>
+  <p>We are generating your ticket...</p>
+  <div class="loader"></div>
+  <p>You will be redirected shortly.</p>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+
+  // 🔢 Generate random 10-digit PNR
+  const pnr = Math.floor(1000000000 + Math.random() * 9000000000);
+  params.set("pnr", pnr);
+
+  // ⏳ Redirect after 7 seconds with full URL
+  setTimeout(() => {
+    window.location.href = "confirm.html?" + params.toString();
+  }, 7000);
+</script>
+
+</body>
+</html>

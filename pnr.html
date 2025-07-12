@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PNR Status - IRCTC</title>
+  <link rel="stylesheet" href="style.css"> <!-- Optional external stylesheet -->
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('railway-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    /* 🔝 Top Navbar */
+    .top-navbar {
+      background-color: #002d62;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 30px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    }
+
+    .top-navbar .left-logo img,
+    .top-navbar .right-logo img {
+      height: 40px;
+    }
+
+    .top-navbar .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-left: 10px;
+      background-color: #004b8d;
+      transition: background 0.3s;
+    }
+
+    .top-navbar .nav-links a:hover {
+      background-color: #1abc9c;
+      color: #002d62;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #1abc9c;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #16a085;
+    }
+
+    #output {
+      margin-top: 20px;
+      text-align: left;
+      background: #fff;
+      color: #000;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🔝 Navbar -->
+<div class="top-navbar">
+  <div class="left-logo">
+    <img src="indian-railways-logo.png" alt="Indian Railways">
+  </div>
+  <div class="nav-links">
+    <a href="index.html">🏠 Back to Home</a>
+  </div>
+  <div class="right-logo">
+    <img src="irctc-logo.png" alt="IRCTC">
+  </div>
+</div>
+
+<!-- 🔍 PNR Check Section -->
+<div class="container">
+  <h2>🔍 Check PNR Status</h2>
+  <input type="text" id="pnrInput" placeholder="Enter PNR (e.g. 6652078931)">
+  <br>
+  <button onclick="checkPNR()">Check</button>
+
+  <div id="output"></div>
+</div>
+
+<!-- 🔁 Dummy Script (Mocked for demo, replace with real API call if needed) -->
+<script>
+  function checkPNR() {
+    const input = document.getElementById("pnrInput").value.trim();
+    const output = document.getElementById("output");
+
+    // Dummy mock data for demonstration
+    const demoPNR = "6652078931";
+    const passengerData = [
+      { name: "Ravi Kumar", age: 32, gender: "Male", status: "Confirmed" },
+      { name: "Meena Kumari", age: 28, gender: "Female", status: "Waiting List 1" }
+    ];
+
+    if (input === demoPNR) {
+      let html = `<h3>Train: 12936 - ST BDTS SF EXP</h3>`;
+      html += `<p>From: Surat → To: Bandra Terminus</p>`;
+      html += `<p>Date: 2025-07-13</p>`;
+      html += `<p><strong>PNR:</strong> ${demoPNR}</p>`;
+      html += `<h4>Passengers:</h4><ul>`;
+
+      passengerData.forEach((p, i) => {
+        html += `<li>${i + 1}. ${p.name} (${p.gender}, ${p.age}) - <strong>${p.status}</strong></li>`;
+      });
+
+      html += `</ul>`;
+      output.innerHTML = html;
+    } else {
+      output.innerHTML = "<p style='color:red;'>❌ Invalid or unknown PNR number.</p>";
+    }
+  }
+</script>
+
+</body>
+</html>

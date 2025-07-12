@@ -1,0 +1,873 @@
+/* 🌄 Full-screen Background Section */
+.hero {
+  background-image: url('banner.jpg'); /* make sure this image is in the same folder */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px; /* space for top heading and login bar */
+  box-sizing: border-box;
+}
+
+/* 🛤️ Welcome Heading at Top */
+.hero-heading {
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-heading h1 {
+  font-size: 36px;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+  margin: 0;
+}
+
+/* 🔐 Top Login Bar - Center Aligned */
+.top-login-bar {
+  background-color: #002d62;
+  color: white;
+  padding: 10px 0;
+  display: flex;
+  justify-content: center;  /* ✅ centers the items */
+  align-items: center;
+  gap: 20px;
+  font-family: Arial, sans-serif;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+}
+
+.top-login-bar a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px 10px;
+  transition: background 0.3s;
+}
+
+.top-login-bar a.active,
+.top-login-bar a:hover {
+  background-color: #ffffff;
+  color: #002d62;
+  border-radius: 4px;
+}
+
+.top-login-bar a.active,
+.top-login-bar a:hover {
+  background-color: #ffffff;
+  color: #002d62;
+  border-radius: 4px;
+}
+
+/* 📦 Vertical Navigation Box */
+.nav-box {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+/* 🔠 Box Heading */
+.nav-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #004b8d;
+}
+
+/* 🔘 Vertical Nav Buttons */
+.vertical-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.vertical-nav a {
+  background-color: #004b8d;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.vertical-nav a:hover {
+  background-color: #1abc9c;
+  transform: scale(1.03);
+}
+
+/* 📱 Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  .hero-heading h1 {
+    font-size: 26px;
+  }
+
+  .top-login-bar {
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 10px 20px;
+  }
+
+  .nav-box {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .vertical-nav a {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+/* 📦 Outer Box (Card Style) */
+.nav-box {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+}
+
+/* 🔠 Box Heading */
+.nav-box h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #004b8d;
+}
+
+/* 🔘 Vertical Nav Buttons */
+.vertical-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.vertical-nav a {
+  background-color: #004b8d;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.vertical-nav a:hover {
+  background-color: #1abc9c;
+  transform: scale(1.03);
+}
+/* 🔐 Logo + Centered Links Bar */
+.top-login-bar {
+  background-color: #002d62;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+/* 🔘 Centered Menu Links */
+.top-links {
+  display: flex;
+  gap: 20px;
+}
+
+.top-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px 10px;
+  transition: background 0.3s;
+}
+
+.top-links a.active,
+.top-links a:hover {
+  background-color: #ffffff;
+  color: #002d62;
+  border-radius: 4px;
+}
+
+/* 🖼️ Logo Styling */
+.logo {
+  height: 40px;
+}
+
+.left-logo {
+  margin-right: auto;
+}
+
+.right-logo {
+  margin-left: auto;
+}
+/* 🚉 Booking Form Styles */
+.booking-container {
+  max-width: 600px;
+  margin: 100px auto;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  border-radius: 12px;
+}
+
+.booking-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #004b8d;
+}
+
+.booking-form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.booking-form input,
+.booking-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.checkbox-group label {
+  margin-bottom: 8px;
+}
+
+.booking-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #004b8d;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.booking-form button:hover {
+  background-color: #1abc9c;
+}
+/* 🌄 Background for Book Page */
+.hero.book-page {
+  background-image: url('book-bg.jpg');  /* use your new image */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+/* 🔐 Top Login Bar Layout with Logos */
+.top-login-bar {
+  background-color: #002d62;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  box-sizing: border-box;
+}
+
+.top-links {
+  display: flex;
+  gap: 20px;
+}
+
+.top-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 5px 10px;
+  transition: background 0.3s;
+}
+
+.top-links a.active,
+.top-links a:hover {
+  background-color: #ffffff;
+  color: #002d62;
+  border-radius: 4px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.left-logo {
+  margin-right: auto;
+}
+
+.right-logo {
+  margin-left: auto;
+}
+/* ✨ Fade-in Animation */
+.fade-in {
+  animation: fadeIn 1.2s ease-in-out both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.hero-heading h1 {
+  font-size: 38px;
+  color: #ffffff;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+  font-weight: 700;
+  margin: 0;
+}
+.hero-heading h1 {
+  font-size: 38px;
+  color: red; /* 🔴 Bold Red Text */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  margin: 0;
+}
+.home-heading h1 {
+  font-size: 38px;
+  color: white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+  font-weight: 700;
+  margin: 0;
+}
+.book-heading h1 {
+  font-size: 38px;
+  color: red;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  font-weight: 700;
+  margin: 0;
+}
+/* ✅ Confirmation Background */
+.hero.confirm-page {
+  background-image: url('confirm-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 80px;
+  box-sizing: border-box;
+}
+
+/* 🎫 Confirmation Box Styling */
+.confirmation-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.confirmation-box h2 {
+  color: #004b8d;
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.confirmation-box p {
+  font-size: 16px;
+  color: #333;
+}
+
+.back-home {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 18px;
+  background-color: #004b8d;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+
+.back-home:hover {
+  background-color: #1abc9c;
+}
+.hero.payment-page {
+  background-image: url('book-bg.jpg'); /* or a payment-style background */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+}
+/* 💳 Official-Looking Payment Gateway Box */
+.payment-gateway {
+  background-color: #ffffff;
+  padding: 30px 40px;
+  max-width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.25);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.payment-gateway h2 {
+  margin-top: 10px;
+  color: #004b8d;
+  font-size: 24px;
+}
+
+.payment-gateway p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.payment-gateway input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.payment-gateway label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.payment-gateway .form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.payment-gateway .form-row > div {
+  flex: 1;
+}
+
+.payment-gateway button {
+  width: 100%;
+  padding: 12px;
+  background-color: #004b8d;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.payment-gateway button:hover {
+  background-color: #1abc9c;
+}
+
+/* 🔒 Secure Icon */
+.secure-icon {
+  width: 48px;
+  margin-bottom: 10px;
+}
+/* 🧭 Tab Buttons */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-buttons .tab {
+  padding: 8px 16px;
+  background-color: #eee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-buttons .tab.active {
+  background-color: #004b8d;
+  color: white;
+}
+
+/* 💳 / 🏦 / 👜 Tabs */
+.tab-content {
+  display: none;
+  margin-top: 10px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* 👜 Wallet buttons */
+.wallet-options {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.wallet-options button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.wallet-options button:hover {
+  background-color: #d1f7e8;
+}
+/* 💳 Clean Payment Box */
+.payment-box {
+  background: #ffffff;
+  padding: 30px 40px;
+  max-width: 420px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.payment-box h2 {
+  margin-top: 10px;
+  color: #004b8d;
+  font-size: 22px;
+}
+
+.payment-box p {
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Secure icon */
+.secure-icon {
+  width: 42px;
+  margin-bottom: 10px;
+}
+
+/* Form Inputs */
+.payment-box input,
+.payment-box select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.payment-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+/* Row for Expiry & CVV */
+.form-row {
+  display: flex;
+  gap: 10px;
+}
+
+.form-row div {
+  flex: 1;
+}
+
+/* 🔘 Tabs */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.tab-buttons .tab {
+  padding: 8px 16px;
+  background: #eee;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-buttons .tab.active {
+  background: #004b8d;
+  color: white;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* 👜 Wallet buttons */
+.wallet-options {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.wallet-options button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.wallet-options button:hover {
+  background: #e0fff3;
+}
+
+/* Payment button */
+.payment-box button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background: #004b8d;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.payment-box button[type="submit"]:hover {
+  background-color: #1abc9c;
+}
+.upi-qr {
+  width: 150px;
+  margin: 15px 0;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
+.wallet-options {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.wallet-options button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+/* 💡 Only show the active tab */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+/* Tab visibility logic */
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+.upi-qr {
+  width: 160px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+}
+.journey-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+}
+
+.journey-form input,
+.journey-form select {
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #aaa;
+}
+
+.journey-form button {
+  background-color: #004b8d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.journey-form button:hover {
+  background-color: #1abc9c;
+}
+/* 🎫 Background for Passenger Page */
+.passenger-page {
+  background-image: url('indian-railways.jpg'); /* Change filename if needed */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 60px;
+}
+
+.passenger-form-box {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+#passenger-details {
+  margin-top: 30px;
+  text-align: left;
+}
+
+#passenger-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#passenger-details th,
+#passenger-details td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  text-align: center;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url('vande.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+.search-box {
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  margin: 100px auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+/* 🔝 Top Navbar */
+.top-navbar {
+  background-color: #002d62;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  font-family: Arial, sans-serif;
+}
+
+.top-navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.top-navbar a.active,
+.top-navbar a:hover {
+  background-color: #1abc9c;
+  color: #002d62;
+}
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: none;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004b8d;
+  padding: 10px 20px;
+  color: white;
+}
+
+.logo-left, .logo-right {
+  height: 40px;
+}
+
+.nav-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  text-decoration: underline;
+  color: #ffcc00;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IRCTC Booking Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .top-login-bar {
+      background-color: #004b8d;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .top-links a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .top-links a:hover {
+      text-decoration: underline;
+    }
+
+    .logo {
+      height: 40px;
+    }
+
+    .user-info {
+      color: #1abc9c;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+
+    .logout-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      margin-left: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🔐 Top Bar -->
+<div class="top-login-bar">
+  <img src="indian-railways.png" alt="Indian Railways" class="logo left-logo">
+
+  <div class="top-links" id="topLinks">
+    <!-- Buttons will be filled by JS -->
+  </div>
+
+  <img src="irctc-logo.png" alt="IRCTC Logo" class="logo right-logo">
+</div>
+
+<!-- 🛤️ Welcome Heading -->
+<div class="hero-heading home-heading">
+  <h1>Welcome to IRCTC Booking Portal</h1>
+  <p id="loginMessage" style="text-align: center; color: green;"></p>
+</div>
+
+<!-- 🚉 Navigation Options -->
+<section class="hero">
+  <div class="nav-box">
+    <h2>Choose an Action</h2>
+    <nav class="vertical-nav">
+      <a href="index.html">Home</a>
+      <a href="book.html">Book</a>
+      <a href="search.html">Search</a>
+      <a href="trains.html">Train Info</a>
+      <a href="pnr.html">Check PNR Status</a>
+      <a href="help-support.html">Help & Support</a>
+    </nav>
+  </div>
+</section>
+
+<script>
+  // Show login status and control buttons
+  const topLinks = document.getElementById("topLinks");
+  const loginMessage = document.getElementById("loginMessage");
+  const isLoggedIn = localStorage.getItem("irctcLoggedIn") === "true";
+  const user = localStorage.getItem("irctcLoggedUser");
+
+  if (isLoggedIn && user) {
+    topLinks.innerHTML = `
+      👤 <span class="user-info">${user}</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    `;
+    loginMessage.textContent = "✅ You are logged in.";
+  } else {
+    topLinks.innerHTML = `
+      <a href="login.html">LOGIN</a>
+      <a href="register.html">REGISTER</a>
+      <a href="#">AGENT LOGIN</a>
+      <a href="contact.html">CONTACT US</a>
+      <a href="help-support.html">HELP AND SUPPORT</a>
+    `;
+  }
+
+  function logout() {
+    localStorage.removeItem("irctcLoggedIn");
+    localStorage.removeItem("irctcLoggedUser");
+    window.location.reload();
+  }
+</script>
+
+</body>
+</html>

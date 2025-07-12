@@ -1,0 +1,34 @@
+[
+  {
+    "train_no": "12301",
+    "train_name": "Rajdhani Express",
+    "source": "Howrah",
+    "destination": "New Delhi",
+    "departure_time": "16:30",
+    "arrival_time": "10:00"
+  },
+  {
+    "train_no": "12951",
+    "train_name": "Mumbai Rajdhani",
+    "source": "Mumbai CST",
+    "destination": "New Delhi",
+    "departure_time": "17:00",
+    "arrival_time": "09:30"
+  },
+  {
+    "train_no": "12615",
+    "train_name": "Grand Trunk Express",
+    "source": "Chennai",
+    "destination": "New Delhi",
+    "departure_time": "18:15",
+    "arrival_time": "06:45"
+  },
+  {
+    "train_no": "12280",
+    "train_name": "Taj Express",
+    "source": "Agra",
+    "destination": "New Delhi",
+    "departure_time": "05:40",
+    "arrival_time": "09:45"
+  }
+]

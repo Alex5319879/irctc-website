@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - IRCTC</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('vande.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 40px 30px;
+      color: white;
+      width: 350px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1abc9c;
+    }
+
+    label {
+      font-weight: 500;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #1abc9c;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .success {
+      color: lightgreen;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>User Login</h2>
+
+    <label for="username">Username or Email:</label>
+    <input type="text" id="username" placeholder="Enter your username or email" />
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="Enter your password" />
+
+    <button onclick="loginUser()">🔐 Login</button>
+
+    <p id="msg" class="error"></p>
+  </div>
+
+  <script>
+    function loginUser() {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const msg = document.getElementById("msg");
+
+      const storedUser = JSON.parse(localStorage.getItem("irctcUser"));
+
+      if (!username || !password) {
+        msg.className = "error";
+        msg.textContent = "❗ Please enter both username/email and password.";
+        return;
+      }
+
+      if (
+        storedUser &&
+        (storedUser.username === username || storedUser.email === username) &&
+        storedUser.password === password
+      ) {
+        msg.className = "success";
+        msg.textContent = "✅ Login successful. Redirecting...";
+
+        // Mark user as logged in
+        localStorage.setItem("irctcLoggedIn", "true");
+        localStorage.setItem("irctcLoggedUser", username);
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      } else {
+        msg.className = "error";
+        msg.textContent = "❌ Invalid credentials. Please try again.";
+      }
+    }
+  </script>
+</body>
+</html>

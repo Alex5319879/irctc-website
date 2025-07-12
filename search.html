@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Train Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('vande.jpg') no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding-top: 70px;
+      color: #fff;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #004b8d;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      z-index: 1000;
+    }
+
+    .logo-left, .logo-right {
+      height: 40px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #ffcc00;
+      text-decoration: underline;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1abc9c;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select {
+      width: 45%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #1abc9c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    table {
+      margin-top: 20px;
+      width: 100%;
+      background: #fff;
+      color: #000;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background: #004b8d;
+      color: white;
+    }
+
+    .error {
+      color: red;
+      margin-top: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <img src="indian_railways_logo.png" alt="Indian Railways" class="logo-left">
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="book.html">Book Ticket</a>
+      <a href="trains.html">Train Info</a>
+      <a href="pnr.html">PNR Status</a>
+      <a href="search.html" class="active">Search Trains</a>
+    </div>
+    <img src="irctc_logo.png" alt="IRCTC" class="logo-right">
+  </nav>
+
+  <!-- Train Search Box -->
+  <div class="container">
+    <h2>Search Trains Between Stations</h2>
+
+    <label for="source">Source Station Name:</label>
+    <select id="source">
+      <option value="">-- Select Source Station --</option>
+      <option value="howrah jn">Howrah Jn</option>
+      <option value="new delhi">New Delhi</option>
+      <option value="kanpur central">Kanpur Central</option>
+      <option value="lucknow jn">Lucknow Jn</option>
+      <option value="mumbai central">Mumbai Central</option>
+      <option value="bangalore city jn">Bangalore City Jn</option>
+      <option value="chennai central">Chennai Central</option>
+      <option value="mumbai cst">Mumbai CST</option>
+      <option value="patna jn">Patna Jn</option>
+      <option value="hyderabad decan">Hyderabad Deccan</option>
+      <option value="sealdah">Sealdah</option>
+      <option value="gorakhpur">Gorakhpur</option>
+    </select>
+
+    <label for="destination">Destination Station Name:</label>
+    <select id="destination">
+      <option value="">-- Select Destination Station --</option>
+      <option value="howrah jn">Howrah Jn</option>
+      <option value="new delhi">New Delhi</option>
+      <option value="kanpur central">Kanpur Central</option>
+      <option value="lucknow jn">Lucknow Jn</option>
+      <option value="mumbai central">Mumbai Central</option>
+      <option value="bangalore city jn">Bangalore City Jn</option>
+      <option value="chennai central">Chennai Central</option>
+      <option value="mumbai cst">Mumbai CST</option>
+      <option value="patna jn">Patna Jn</option>
+      <option value="hyderabad decan">Hyderabad Deccan</option>
+      <option value="sealdah">Sealdah</option>
+      <option value="gorakhpur">Gorakhpur</option>
+    </select>
+
+    <br />
+    <button onclick="searchTrains()">🔍 Search</button>
+    <p id="errorMsg" class="error"></p>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const trainData = [
+      {
+        train_no: "12301", train_name: "Rajdhani Express",
+        arrival_time: "06:00", departure_time: "06:15",
+        source_station_name: "howrah jn", destination_station_name: "new delhi"
+      },
+      {
+        train_no: "12302", train_name: "Shatabdi Express",
+        arrival_time: "09:00", departure_time: "09:10",
+        source_station_name: "new delhi", destination_station_name: "kanpur central"
+      },
+      {
+        train_no: "12001", train_name: "Shatabdi Express",
+        arrival_time: "07:45", departure_time: "08:00",
+        source_station_name: "new delhi", destination_station_name: "lucknow jn"
+      },
+      {
+        train_no: "12951", train_name: "Mumbai Rajdhani",
+        arrival_time: "16:45", departure_time: "17:00",
+        source_station_name: "mumbai central", destination_station_name: "new delhi"
+      },
+      {
+        train_no: "12627", train_name: "Karnataka Express",
+        arrival_time: "14:00", departure_time: "14:20",
+        source_station_name: "bangalore city jn", destination_station_name: "new delhi"
+      },
+      {
+        train_no: "12430", train_name: "Rajdhani Express",
+        arrival_time: "13:00", departure_time: "13:20",
+        source_station_name: "chennai central", destination_station_name: "new delhi"
+      },
+      {
+        train_no: "12860", train_name: "Gitanjali Express",
+        arrival_time: "08:30", departure_time: "08:45",
+        source_station_name: "howrah jn", destination_station_name: "mumbai cst"
+      },
+      {
+        train_no: "12296", train_name: "Sanghamitra Express",
+        arrival_time: "19:00", departure_time: "19:30",
+        source_station_name: "patna jn", destination_station_name: "bangalore city jn"
+      },
+      {
+        train_no: "12723", train_name: "Telangana Express",
+        arrival_time: "06:20", departure_time: "06:40",
+        source_station_name: "hyderabad decan", destination_station_name: "new delhi"
+      },
+      {
+        train_no: "12306", train_name: "Kolkata Rajdhani",
+        arrival_time: "17:30", departure_time: "17:50",
+        source_station_name: "new delhi", destination_station_name: "sealdah"
+      },
+      {
+        train_no: "12561", train_name: "Swarna Jayanti Exp",
+        arrival_time: "22:00", departure_time: "22:20",
+        source_station_name: "gorakhpur", destination_station_name: "new delhi"
+      }
+    ];
+
+    function searchTrains() {
+      const source = document.getElementById('source').value.trim().toLowerCase();
+      const destination = document.getElementById('destination').value.trim().toLowerCase();
+      const errorMsg = document.getElementById('errorMsg');
+      const resultDiv = document.getElementById('result');
+
+      resultDiv.innerHTML = '';
+      errorMsg.textContent = '';
+
+      if (!source || !destination) {
+        errorMsg.textContent = '❗ Please select both source and destination stations.';
+        return;
+      }
+
+      const results = trainData.filter(train =>
+        train.source_station_name === source && train.destination_station_name === destination
+      );
+
+      if (results.length === 0) {
+        errorMsg.textContent = '❌ No trains found for this route.';
+        return;
+      }
+
+      let html = `<table><thead><tr>
+        <th>Train No</th><th>Name</th><th>Arrival</th><th>Departure</th><th>From</th><th>To</th>
+      </tr></thead><tbody>`;
+
+      results.forEach(train => {
+        html += `<tr>
+          <td>${train.train_no}</td>
+          <td>${train.train_name}</td>
+          <td>${train.arrival_time}</td>
+          <td>${train.departure_time}</td>
+          <td>${train.source_station_name}</td>
+          <td>${train.destination_station_name}</td>
+        </tr>`;
+      });
+
+      html += '</tbody></table>';
+      resultDiv.innerHTML = html;
+    }
+  </script>
+</body>
+</html>
