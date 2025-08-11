@@ -1,191 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Train Info - IRCTC</title>
-<link rel="stylesheet" href="style.css">
-<style>
-body {
-margin: 0;
-font-family: 'Segoe UI', sans-serif;
-background: url('indian-train-bg.jpg') no-repeat center center fixed;
-background-size: cover;
-animation: fadeIn 1s ease-in;
-}
+  <meta charset="UTF-8">
+  <title>Train Info (Offline JSON with Dropdown)</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('indian-train-bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      animation: fadeIn 1s ease-in;
+    }
 
-.train-container {
-max-width: 900px;
-background: rgba(255, 255, 255, 0.95);
-padding: 30px 40px;
-margin: 80px auto;
-border-radius: 12px;
-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-animation: fadeIn 1s ease-in;
-}
+    .train-container {
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px 40px;
+      margin: 80px auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 1s ease-in;
+    }
 
-h2 {
-text-align: center;
-color: #004b8d;
-}
+    h2 {
+      text-align: center;
+      color: #004b8d;
+    }
 
-form {
-display: flex;
-justify-content: center;
-margin-top: 20px;
-}
+    form {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
 
-input[type="text"] {
-padding: 10px;
-font-size: 16px;
-width: 200px;
-border-radius: 6px;
-border: 1px solid #ccc;
-margin-right: 10px;
-}
+    select {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 250px;
+    }
 
-button {
-padding: 10px 18px;
-font-size: 16px;
-background: #004b8d;
-color: white;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-}
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      background: #004b8d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-button:hover {
-background: #1abc9c;
-}
+    button:hover {
+      background: #1abc9c;
+    }
 
-.btn-group {
-margin-top: 20px;
-display: flex;
-justify-content: space-between;
-}
+    .btn-group {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+    }
 
-.btn-group a, .btn-group button {
-background-color: #004b8d;
-color: white;
-padding: 10px 15px;
-border-radius: 6px;
-text-decoration: none;
-font-size: 15px;
-}
+    .btn-group a, .btn-group button {
+      background-color: #004b8d;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 15px;
+    }
 
-.btn-group a:hover,
-.btn-group button:hover {
-background-color: #1abc9c;
-}
+    .btn-group a:hover,
+    .btn-group button:hover {
+      background-color: #1abc9c;
+    }
 
-table {
-width: 100%;
-border-collapse: collapse;
-margin-top: 20px;
-}
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
 
-th, td {
-padding: 10px;
-border: 1px solid #ccc;
-text-align: center;
-font-size: 14px;
-}
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 14px;
+    }
 
-th {
-background-color: #004b8d;
-color: white;
-}
+    th {
+      background-color: #004b8d;
+      color: white;
+    }
 
-@keyframes fadeIn {
-from { opacity: 0; transform: translateY(20px); }
-to { opacity: 1; transform: translateY(0); }
-}
-</style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
 <div class="train-container">
-<h2>🚆 Check Train Information</h2>
+  <h2>🚆 Check Train Information (Offline Data)</h2>
 
-<form onsubmit="getTrainInfo(event)">
-<input type="text" id="trainNo" placeholder="Enter Train Number" required>
-<button type="submit">🔍 Search</button>
-</form>
+  <form onsubmit="getTrainInfo(event)">
+    <select id="trainSelect" required>
+      <option value="">-- Select Train --</option>
+    </select>
+    <button type="submit">🔍 Search</button>
+  </form>
 
-<div class="btn-group">
-<a href="index.html">🏠 Back to Home</a>
-<button onclick="window.print()">🖨️ Print Info</button>
-</div>
+  <div class="btn-group">
+    <a href="index.html">🏠 Back to Home</a>
+    <button onclick="window.print()">🖨️ Print Info</button>
+  </div>
 
-<div id="result"></div>
+  <div id="result"></div>
 </div>
 
 <script>
-async function getTrainInfo(e) {
-e.preventDefault();
-const trainNo = document.getElementById("trainNo").value.trim();
-if (!trainNo) return alert("Please enter a train number!");
+  // Local JSON database of trains
+  const trains = [
+    {
+      train_no: "12951",
+      train_name: "Mumbai Rajdhani Express",
+      type: "Rajdhani",
+      origin: "Mumbai Central",
+      destination: "New Delhi",
+      classes: ["1A", "2A", "3A"],
+      schedule: [
+        { station_name: "Mumbai Central", station_code: "MMCT", arrive: "Start", depart: "16:00", platform: "1", distance: 0 },
+        { station_name: "Surat", station_code: "ST", arrive: "18:20", depart: "18:25", platform: "3", distance: 263 },
+        { station_name: "Vadodara Jn", station_code: "BRC", arrive: "19:50", depart: "19:55", platform: "1", distance: 392 },
+        { station_name: "New Delhi", station_code: "NDLS", arrive: "08:32", depart: "End", platform: "5", distance: 1384 }
+      ]
+    },
+    {
+      train_no: "12001",
+      train_name: "Bhopal Shatabdi Express",
+      type: "Shatabdi",
+      origin: "New Delhi",
+      destination: "Habibganj",
+      classes: ["EC", "CC"],
+      schedule: [
+        { station_name: "New Delhi", station_code: "NDLS", arrive: "Start", depart: "06:00", platform: "1", distance: 0 },
+        { station_name: "Agra Cantt", station_code: "AGC", arrive: "07:40", depart: "07:45", platform: "2", distance: 188 },
+        { station_name: "Jhansi Jn", station_code: "JHS", arrive: "10:43", depart: "10:48", platform: "3", distance: 409 },
+        { station_name: "Habibganj", station_code: "HBJ", arrive: "14:30", depart: "End", platform: "1", distance: 708 }
+      ]
+    },
+    {
+      train_no: "12627",
+      train_name: "Karnataka Express",
+      type: "Superfast",
+      origin: "Bengaluru City",
+      destination: "New Delhi",
+      classes: ["1A", "2A", "3A", "SL"],
+      schedule: [
+        { station_name: "Bengaluru City", station_code: "SBC", arrive: "Start", depart: "19:20", platform: "2", distance: 0 },
+        { station_name: "Bhopal Jn", station_code: "BPL", arrive: "12:10", depart: "12:15", platform: "1", distance: 1738 },
+        { station_name: "New Delhi", station_code: "NDLS", arrive: "19:20", depart: "End", platform: "5", distance: 2411 }
+      ]
+    }
+  ];
 
-const url = `https://irctc1.p.rapidapi.com/api/v1/getTrainScheduleV2?trainNo=${trainNo}`;
-const options = {
-method: 'GET',
-headers: {
-'X-Rapidapi-Key': '2d74b577b9mshe047fcec2bd1437p15f47ejsnbb36f53e1537',
-'X-Rapidapi-Host': 'irctc1.p.rapidapi.com'
-}
-};
+  // Populate the dropdown on page load
+  window.onload = function() {
+    const trainSelect = document.getElementById("trainSelect");
+    trains.forEach(train => {
+      const option = document.createElement("option");
+      option.value = train.train_no;
+      option.textContent = `${train.train_no} - ${train.train_name}`;
+      trainSelect.appendChild(option);
+    });
+  };
 
-const resultDiv = document.getElementById("result");
-resultDiv.innerHTML = "⏳ Loading...";
+  function getTrainInfo(e) {
+    e.preventDefault();
+    const trainNo = document.getElementById("trainSelect").value;
+    const resultDiv = document.getElementById("result");
 
-try {
-const res = await fetch(url, options);
-const data = await res.json();
+    const train = trains.find(t => t.train_no === trainNo);
 
-if (data.status && data.data) {
-const train = data.data;
-let scheduleHTML = `
-<h3>${train.train_name} (${train.train_code})</h3>
-<p><strong>Type:</strong> ${train.type}</p>
-<p><strong>From:</strong> ${train.origin.station_name} → <strong>To:</strong> ${train.destination.station_name}</p>
-<p><strong>Available Classes:</strong> ${train.classes.join(", ")}</p>
-<h4>📋 Full Schedule:</h4>
-<table>
-<thead>
-<tr>
-<th>Station</th>
-<th>Code</th>
-<th>Arrive</th>
-<th>Depart</th>
-<th>Platform</th>
-<th>Distance (km)</th>
-</tr>
-</thead>
-<tbody>
-`;
+    if (!train) {
+      resultDiv.innerHTML = "❌ Train number not found in the local database.";
+      return;
+    }
 
-for (let stop of train.schedule) {
-scheduleHTML += `
-<tr>
-<td>${stop.station_name}</td>
-<td>${stop.station_code}</td>
-<td>${stop.arrive}</td>
-<td>${stop.depart}</td>
-<td>${stop.platform || '-'}</td>
-<td>${stop.distance}</td>
-</tr>
-`;
-}
+    let scheduleHTML = `
+      <h3>${train.train_name} (${train.train_no})</h3>
+      <p><strong>Type:</strong> ${train.type}</p>
+      <p><strong>From:</strong> ${train.origin} → <strong>To:</strong> ${train.destination}</p>
+      <p><strong>Available Classes:</strong> ${train.classes.join(", ")}</p>
+      <h4>📋 Full Schedule:</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Station</th>
+            <th>Code</th>
+            <th>Arrive</th>
+            <th>Depart</th>
+            <th>Platform</th>
+            <th>Distance (km)</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
 
-scheduleHTML += `</tbody></table>`;
-resultDiv.innerHTML = scheduleHTML;
-} else {
-resultDiv.innerHTML = "❌ Train not found or API limit reached.";
-}
-} catch (error) {
-console.error(error);
-resultDiv.innerHTML = "⚠️ Error fetching train information.";
-}
-}
+    for (let stop of train.schedule) {
+      scheduleHTML += `
+        <tr>
+          <td>${stop.station_name}</td>
+          <td>${stop.station_code}</td>
+          <td>${stop.arrive}</td>
+          <td>${stop.depart}</td>
+          <td>${stop.platform || '-'}</td>
+          <td>${stop.distance}</td>
+        </tr>
+      `;
+    }
+
+    scheduleHTML += `</tbody></table>`;
+    resultDiv.innerHTML = scheduleHTML;
+  }
 </script>
 
 </body>
