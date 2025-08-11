@@ -1,192 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Live Station Info - IRCTC</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('indian-train-bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      animation: fadeIn 1s ease-in;
-    }
+<meta charset="UTF-8">
+<title>Train Info - IRCTC</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+margin: 0;
+font-family: 'Segoe UI', sans-serif;
+background: url('indian-train-bg.jpg') no-repeat center center fixed;
+background-size: cover;
+animation: fadeIn 1s ease-in;
+}
 
-    .train-container {
-      max-width: 900px;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px 40px;
-      margin: 80px auto;
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      animation: fadeIn 1s ease-in;
-    }
+.train-container {
+max-width: 900px;
+background: rgba(255, 255, 255, 0.95);
+padding: 30px 40px;
+margin: 80px auto;
+border-radius: 12px;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+animation: fadeIn 1s ease-in;
+}
 
-    h2 {
-      text-align: center;
-      color: #004b8d;
-    }
+h2 {
+text-align: center;
+color: #004b8d;
+}
 
-    form {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+form {
+display: flex;
+justify-content: center;
+margin-top: 20px;
+}
 
-    input[type="text"], input[type="number"] {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      width: 200px;
-    }
+input[type="text"] {
+padding: 10px;
+font-size: 16px;
+width: 200px;
+border-radius: 6px;
+border: 1px solid #ccc;
+margin-right: 10px;
+}
 
-    button {
-      padding: 10px 18px;
-      font-size: 16px;
-      background: #004b8d;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
+button {
+padding: 10px 18px;
+font-size: 16px;
+background: #004b8d;
+color: white;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+}
 
-    button:hover {
-      background: #1abc9c;
-    }
+button:hover {
+background: #1abc9c;
+}
 
-    .btn-group {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-    }
+.btn-group {
+margin-top: 20px;
+display: flex;
+justify-content: space-between;
+}
 
-    .btn-group a, .btn-group button {
-      background-color: #004b8d;
-      color: white;
-      padding: 10px 15px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-size: 15px;
-    }
+.btn-group a, .btn-group button {
+background-color: #004b8d;
+color: white;
+padding: 10px 15px;
+border-radius: 6px;
+text-decoration: none;
+font-size: 15px;
+}
 
-    .btn-group a:hover,
-    .btn-group button:hover {
-      background-color: #1abc9c;
-    }
+.btn-group a:hover,
+.btn-group button:hover {
+background-color: #1abc9c;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
 
-    th, td {
-      padding: 8px;
-      border: 1px solid #ccc;
-      text-align: center;
-      font-size: 14px;
-    }
+th, td {
+padding: 10px;
+border: 1px solid #ccc;
+text-align: center;
+font-size: 14px;
+}
 
-    th {
-      background-color: #004b8d;
-      color: white;
-    }
+th {
+background-color: #004b8d;
+color: white;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 <body>
 
 <div class="train-container">
-  <h2>🚉 Live Station Train Information</h2>
+<h2>🚆 Check Train Information</h2>
 
-  <form onsubmit="getLiveStationInfo(event)">
-    <input type="text" id="stationCode" placeholder="Enter Station Code (e.g., NDLS)" required>
-    <input type="number" id="hours" placeholder="Hours (1-24)" min="1" max="24" value="1" required>
-    <button type="submit">🔍 Search</button>
-  </form>
+<form onsubmit="getTrainInfo(event)">
+<input type="text" id="trainNo" placeholder="Enter Train Number" required>
+<button type="submit">🔍 Search</button>
+</form>
 
-  <div class="btn-group">
-    <a href="index.html">🏠 Back to Home</a>
-    <button onclick="window.print()">🖨️ Print Info</button>
-  </div>
+<div class="btn-group">
+<a href="index.html">🏠 Back to Home</a>
+<button onclick="window.print()">🖨️ Print Info</button>
+</div>
 
-  <div id="result"></div>
+<div id="result"></div>
 </div>
 
 <script>
-  async function getLiveStationInfo(e) {
-    e.preventDefault();
+async function getTrainInfo(e) {
+e.preventDefault();
+const trainNo = document.getElementById("trainNo").value.trim();
+if (!trainNo) return alert("Please enter a train number!");
 
-    const stationCode = document.getElementById("stationCode").value.trim();
-    const hours = document.getElementById("hours").value.trim();
-    const resultDiv = document.getElementById("result");
+const url = `https://irctc1.p.rapidapi.com/api/v1/getTrainScheduleV2?trainNo=${trainNo}`;
+const options = {
+method: 'GET',
+headers: {
+'X-Rapidapi-Key': '2d74b577b9mshe047fcec2bd1437p15f47ejsnbb36f53e1537',
+'X-Rapidapi-Host': 'irctc1.p.rapidapi.com'
+}
+};
 
-    if (!stationCode || !hours) {
-      alert("Please enter all required details!");
-      return;
-    }
+const resultDiv = document.getElementById("result");
+resultDiv.innerHTML = "⏳ Loading...";
 
-    const url = `https://irctc1.p.rapidapi.com/api/v3/getLiveStation?stationCode=${stationCode}&hours=${hours}`;
+try {
+const res = await fetch(url, options);
+const data = await res.json();
 
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-Rapidapi-Key': '2d74b577b9mshe047fcec2bd1437p15f47ejsnbb36f53e1537',
-        'X-Rapidapi-Host': 'irctc1.p.rapidapi.com'
-      }
-    };
+if (data.status && data.data) {
+const train = data.data;
+let scheduleHTML = `
+<h3>${train.train_name} (${train.train_code})</h3>
+<p><strong>Type:</strong> ${train.type}</p>
+<p><strong>From:</strong> ${train.origin.station_name} → <strong>To:</strong> ${train.destination.station_name}</p>
+<p><strong>Available Classes:</strong> ${train.classes.join(", ")}</p>
+<h4>📋 Full Schedule:</h4>
+<table>
+<thead>
+<tr>
+<th>Station</th>
+<th>Code</th>
+<th>Arrive</th>
+<th>Depart</th>
+<th>Platform</th>
+<th>Distance (km)</th>
+</tr>
+</thead>
+<tbody>
+`;
 
-    resultDiv.innerHTML = "⏳ Loading...";
+for (let stop of train.schedule) {
+scheduleHTML += `
+<tr>
+<td>${stop.station_name}</td>
+<td>${stop.station_code}</td>
+<td>${stop.arrive}</td>
+<td>${stop.depart}</td>
+<td>${stop.platform || '-'}</td>
+<td>${stop.distance}</td>
+</tr>
+`;
+}
 
-    try {
-      const res = await fetch(url, options);
-      const data = await res.json();
-      console.log(data);
-
-      if (data.status && data.data && data.data.length > 0) {
-        let html = `<h3>Live Arrivals & Departures for <u>${stationCode.toUpperCase()}</u></h3>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Train Name</th>
-                          <th>Train No</th>
-                          <th>Arrives</th>
-                          <th>Departs</th>
-                          <th>Delay</th>
-                          <th>Platform</th>
-                        </tr>
-                      </thead>
-                      <tbody>`;
-
-        for (let train of data.data) {
-          html += `<tr>
-                    <td>${train.train_name}</td>
-                    <td>${train.train_number}</td>
-                    <td>${train.actual_arrival || '-'}</td>
-                    <td>${train.actual_departure || '-'}</td>
-                    <td>${train.delay_arrival || 'On Time'}</td>
-                    <td>${train.platform_number || '-'}</td>
-                  </tr>`;
-        }
-
-        html += `</tbody></table>`;
-        resultDiv.innerHTML = html;
-      } else {
-        resultDiv.innerHTML = "❌ No live train data found for this station.";
-      }
-
-    } catch (error) {
-      console.error(error);
-      resultDiv.innerHTML = "⚠️ Error fetching live station information.";
-    }
-  }
+scheduleHTML += `</tbody></table>`;
+resultDiv.innerHTML = scheduleHTML;
+} else {
+resultDiv.innerHTML = "❌ Train not found or API limit reached.";
+}
+} catch (error) {
+console.error(error);
+resultDiv.innerHTML = "⚠️ Error fetching train information.";
+}
+}
 </script>
 
 </body>
